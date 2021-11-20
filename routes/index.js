@@ -1,5 +1,6 @@
 var express = require('express');
-const { body,validationResult } = require('express-validator');
+const { check,validationResult } = require('express-validator');
+const { Account } = require('../models/Account');
 var router = express.Router();
 
 /* GET home page. */
@@ -11,18 +12,63 @@ router.get('/login',(req,res) => {
   if (req.session.isLogged) {
     res.redirect('/dashboard');
   }
-  res.render('login', {title: "login"});
+  res.render('login', {
+    title: "Log In",
+    messages: onlyMsg(req.flash('errors')),
+    form: req.flash('form')[0] || null
+  });
 });
 
 router.post('/login',
-    body('username', 'Username is required').trim().escape().isLength({ min: 2 }),
-    body('password', 'Password is required').isLength({ min: 2 }),
+    check('email', 'Email is required').trim().escape().notEmpty()
+        .isEmail().withMessage('Email must be valid'),
+    check('password', 'Password is required').trim().escape().notEmpty().withMessage('Password is required')
+        .custom((value, { req }) => {
+          if (req.body.password !== "password")
+            throw new Error('Incorrect Password ');
+          // Indicates the success of this synchronous custom validator
+          return true;
+        }),
     (req,res) => {
+
   const errors = validationResult(req);
-  console.log(errors);
   if (!errors.isEmpty()) {
+    req.flash('errors', errors.array());
+    req.flash('form', req.body);
     return res.redirect('/login');
   }
+
+  req.session.account = new Account('jérémie', 'login');
+  req.session.isLogged = true;
+  res.redirect('/dashboard');
+});
+
+router.get('/signup', (req, res) => {
+  res.render('signup', {
+    title: "Sign Up",
+    messages: onlyMsg(req.flash('errors')),
+    form: req.flash('form')[0] || null
+  });
+});
+
+router.post('/signup',
+    check('firstname', 'Firstname is required').trim().escape().notEmpty(),
+    check('lastname', 'Lastname is required').trim().escape().notEmpty(),
+    check('email', 'Email is required').trim().escape().notEmpty()
+        .isEmail().withMessage('Email must be valid'),
+    check('phone', 'Phone is required').trim().escape().notEmpty()
+        .isMobilePhone("en-CA").withMessage('Phone must be valid'),
+    check('password', 'Password is required').trim().escape().notEmpty(),
+    (req, res) => {
+
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    req.flash('errors', errors.array());
+    req.flash('form', req.body);
+    return res.redirect('/signup');
+  }
+
+  req.session.account = new Account(req.body.firstname, req.body.lastname);
   req.session.isLogged = true;
   res.redirect('/dashboard');
 });
@@ -33,3 +79,13 @@ router.get('/logout',(req,res) => {
 });
 
 module.exports = router;
+
+function onlyMsg(errors) {
+  let data = [];
+  if (errors.length === 0)
+    return [];
+  errors.forEach(elem => {
+    data.push(elem.msg)
+  });
+  return data;
+}

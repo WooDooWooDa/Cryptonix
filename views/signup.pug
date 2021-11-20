@@ -7,19 +7,20 @@ block content
       h2 cryptonix
     .columns
       .login.column
-        h1.mb-5 Log In
+        h1.mb-5 Sign Up
         +flash()
-        form(method="post" action="/login").login-form
+        form(method="post" action="/signup").login-form.x2
+          .is-flex.is-flex-direction-row
+            input(type="text" placeholder="lastname" name="lastname" value=(form !== null) ? form.lastname: '').input.mr-3.my-3
+            input(type="text" placeholder="firstname" name="firstname" value=(form !== null) ? form.firstname: '').input.ml-3.my-3
           input(type="text" placeholder="email" name="email" value=(form !== null) ? form.email: '').input.my-3
+          input(type="phone" placeholder="phone" name="phone" value=(form !== null) ? form.phone: '').input.my-3
           input(type="password" placeholder="password" name="password").input.my-3
-          button.button.my-3 Log In
+          button.button.my-3 Sign Up
         .mt-5.is-flex.is-flex-direction-row.is-size-7.is-align-items-center
-          a(href="/forgotPassword")
-            p.muted Forgot password?
-          p.middle-dot.muted &#183;
-          p.muted Don't have an account?
-          a(href="/signup").mx-2
-            p.is-size-7.is-bold Sign Up
+          p.muted Already have an account?
+          a(href="/login").mx-2
+            p.is-size-7.is-bold Log In
       .login-info.column.has-text-right
         h1.is-size-1 <span style="font-style: italic; letter-spacing: 8px;">5</span>K+ WALLETS
         p.muted.accent 300K+ TRANSACTIONS

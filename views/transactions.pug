@@ -6,3 +6,58 @@ block nav
 block content
   #main
     +topnav()
+    .overview.is-flex.is-flex-direction-row.is-justify-content-space-between.is-align-items-center.p-5
+      .icon-text.secondary
+        h3.is-bold Overview
+        .icon
+          .fas.fa-ellipsis-v
+      .dates.is-flex-direction-row.is-flex.is-align-items-center
+        h3.px-3.is-bold FROM
+        button.button.btn-full
+          h3 Dec 08, 2001
+        h3.px-3.is-bold TO
+        button.button.btn-full
+          h3 Today
+
+    .transactions-info.is-flex.is-flex-direction-row.px-5.is-justify-content-space-between
+      .nb-transactions.is-align-items-end.is-flex
+        h1.is-size-1 2,000
+        h3.secondary.mb-3.mx-3.is-bold Transactions
+        button.button.btn-full.ml-6
+          h3.is-bold Export History
+      .filter-by.is-align-items-center.is-flex
+        button.button.btn-transparent.selected
+          h3.is-bold ALL
+        button.button.btn-transparent
+          h3.is-bold SENT
+        button.button.btn-transparent
+          h3.is-bold RECEIVED
+
+    .transactions.mx-5.my-6
+      each transaction in transactions
+        .box.bg-secondary.p-5.is-justify-content-space-between.is-flex
+          .left.is-flex-direction-row.is-flex.is-flex.is-align-items-center
+            a.icon.mx-5
+              .fas.fa-ellipsis-v.is-size-5
+            .date-time.has-text-white.mx-6
+              h3 10:00, 23 Dec 2018
+            button.button.btn-pale.crypto-logo.mx-6
+              img(src="/images/crypto/btc.png")
+            .action(class=transaction.action).mx-6
+              .icon-text
+                .icon.pr-3
+                  .fas.fa-arrow-down
+                h3.has-text-white 0x2348907453984503458734503948750734
+          .right.is-flex-direction-row.is-flex.is-flex.is-align-items-center
+            .amount.has-text-white.is-flex-direction-row.is-flex
+              h1.mr-2=transaction.amount
+              h1.mr-6.is-bold=transaction.crypto.sigle
+            .status
+              if transaction.status
+                button.button.accent.btn-accent
+                  h3.has-text-white Completed
+              else
+                button.button.accent.btn-border
+                  h3.has-text-white Pending
+
+

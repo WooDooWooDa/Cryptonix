@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('market', {title: "Market"});
+    if (!req.session.isLogged) {
+        res.redirect('/login');
+    }
+    res.render('market', {title: "Market", account: req.session.account});
 });
 
 module.exports = router;

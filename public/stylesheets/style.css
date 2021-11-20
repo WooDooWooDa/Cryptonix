@@ -8,7 +8,7 @@
   --accent: #78BD38;
   --pale-accent: #b6ff77;
   --white: #FFFFFF;
-  --pale-white: rgba(255, 255, 255, 0.68);
+  --pale-grey: #b5b5b5;
   --black: #000000;
 }
 
@@ -31,7 +31,23 @@ body {
 }
 
 .accent {
-  color: var(--accent);
+  color: var(--accent) !important;
+}
+
+.secondary {
+  color: var(--secondary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.primary {
+  color: var(--primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
 }
 
 .login-body {
@@ -97,6 +113,7 @@ divider {
 }
 
 #main {
+  background-color: #18191D !important;
   padding: 10px 20px;
   margin-left: 7rem;
 }
@@ -142,6 +159,10 @@ divider {
   color: var(--white);
 }
 
+.button.selected {
+  color: var(--white);
+}
+
 /* login */
 .login {
   margin-left: 10rem;
@@ -153,6 +174,10 @@ divider {
 
 .login-form {
   max-width: 20rem;
+}
+
+.login-form.x2 {
+  max-width: 25rem;
 }
 
 .login-form input {
@@ -230,6 +255,14 @@ button.btn {
   border-radius: 2px !important;
 }
 
+button.btn-accent {
+  background-color: var(--accent);
+  color: var(--white);
+  padding: 20px 18px;
+  border: none;
+  border-radius: 2px !important;
+}
+
 button.btn-transparent {
   background-color: transparent;
   padding: 20px 18px;
@@ -254,6 +287,15 @@ button.btn-border {
   border-radius: 2px !important;
 }
 
+button.btn-pale {
+  border-color: transparent;
+  background-color: var(--pale-grey);
+  color: var(--primary);
+  padding: 20px 18px;
+  opacity: 0.8;
+  border-radius: 2px !important;
+}
+
 button:hover {
   color: var(--white) !important;
   opacity: 0.8;
@@ -261,6 +303,10 @@ button:hover {
 
 button.btn-border:hover {
   border-color: var(--white);
+}
+
+button.btn-pale:hover {
+  border-color: var(--secondary);
 }
 
 .button i {
@@ -279,7 +325,31 @@ button:hover i {
   opacity: 0.1;
 }
 
-#optionsContent {
-  display: block;
-  top: 40px;
+.box {
+  border-radius: 2px;
+}
+
+button.crypto-logo {
+  padding: 22px;
+}
+
+.crypto-logo img {
+  position: absolute;
+  max-width: 50%;
+}
+
+.sent .icon {
+  color: red;
+}
+
+.received .icon {
+  color: #00ff00;
+}
+
+.bought .icon {
+  color: darkorange;
+}
+
+.sold .icon {
+  color: deepskyblue;
 }

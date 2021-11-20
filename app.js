@@ -4,6 +4,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let session = require('express-session');
+let flash = require('connect-flash');
 
 let indexRouter = require('./routes/index');
 let dashboardRouter = require('./routes/dashboard');
@@ -15,21 +16,22 @@ let usersRouter = require('./routes/users');
 let app = express();
 
 const oneDay = 1000 * 60 * 60 * 24;
-app.use(session({
-  secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
-  saveUninitialized:true,
-  cookie: { maxAge: oneDay },
-  resave: false
-}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use(cookieParser());
+app.use(session({
+  secret: "sdfbdmesecret123asgghjregv",
+  saveUninitialized:true,
+  cookie: { maxAge: oneDay },
+  resave: false
+}));
+app.use(flash());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

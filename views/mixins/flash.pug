@@ -1,0 +1,13 @@
+mixin flash()
+  //+flash-message(messages, 'success')
+  +flash-message(messages, 'danger')
+  //+flash-message(messages, 'warning')
+  //+flash-message(messages, 'info')
+
+mixin flash-message(data, type)
+  if data.length > 0
+    .notification(class='is-' + type).muted
+      ul
+        each message in data
+          if message !== ""
+            li=message
