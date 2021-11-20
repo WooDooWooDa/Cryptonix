@@ -1,0 +1,55 @@
+mixin sidenav()
+  #sideBar.side-bar
+    .logo.is-flex
+      a(href="/")
+        img(src="/images/logo.png")
+    divider
+    .side-bar-menu
+      a(href="/dashboard")
+        i.fas.fa-th-large.fa-2x
+      a(href="/wallets")
+        i.fas.fa-wallet.fa-2x
+      a(href="/market")
+        i.fas.fa-chart-bar.fa-2x
+      a(href="/transactions")
+        i.fas.fa-history.fa-2x
+      a(href="/calculator")
+        i.fas.fa-calculator.fa-2x
+      a(href="/news")
+        i.fas.fa-newspaper.fa-2x
+      a(href="/settings")
+        i.fas.fa-cog.fa-2x
+
+mixin topnav()
+  #topBar.top-bar
+    .is-flex.py-5.pl-5.is-align-items-center.is-justify-content-space-between
+      .page-title
+        h1=title
+      .search-bar
+        form#search(method="post" action="/search")
+          input#query(type="text" name="q" placeholder="Search..." autocomplete="off")
+          button
+           i.fas.fa-search
+      .support
+        button.button.btn-full
+          .icon-text
+            .icon
+              i.fas.fa-info-circle
+            span Support
+        button.button.btn-border.ml-3
+          .icon-text
+            .icon
+              .fas.fa-plus
+      .profile.is-flex.is-flex-direction-row.is-align-items-center
+        button#optionsBtn.button.btn-transparent.menu-bars
+          .icon-text
+            .icon.is-size-3
+              .fas.fa-bars
+        .profile-name.ml-4
+          h3.is-bold Jérémie Bouchard
+        .profile-pic.mx-5
+          button.button.btn
+            .icon-text
+              a(href="/profile").icon.is-size-4
+                i.fas.fa-user
+

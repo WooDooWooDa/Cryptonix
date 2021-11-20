@@ -1,0 +1,14 @@
+include mixins/navigation
+
+doctype html
+html
+  head
+    title=title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://code.jquery.com/jquery-3.6.0.min.js')
+    script(src="/javascripts/sidebar.js")
+  body
+    block nav
+    block content
+    block footer
+

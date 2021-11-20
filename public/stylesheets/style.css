@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+@import "vendor/fontawesome.min.css";
+@import "vendor/bulma.css";
+
+:root {
+  --primary: #1D2024;
+  --secondary: #2A2B31;
+  --accent: #78BD38;
+  --pale-accent: #b6ff77;
+  --white: #FFFFFF;
+  --pale-white: rgba(255, 255, 255, 0.68);
+  --black: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--white);
+  min-height: 100%;
+  background-color: #18191D !important;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.login-body {
+  min-height: 100%;
+  color: var(--black) !important;
+  background-color: var(--white) !important;
+  padding: 80px 200px;
+}
+
+button:focus:not(:active) {
+  box-shadow: none !important;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover * {
+  opacity: 1;
+  color: black;
+}
+
+h1, h2, h3 {
+  letter-spacing: 1px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+h4 {
+  font-size: 8px;
+}
+
+.is-bold {
+  font-weight: bold;
+}
+
+.muted {
+  opacity: 0.5;
+}
+
+.middle-dot {
+  content: '';
+  vertical-align: center;
+  line-height: 18px;
+  font-size: 2rem;
+  margin: 0 10px;
+}
+
+divider {
+  width: 100%;
+  padding: 35px 0;
+  display: block;
+}
+
+#main {
+  padding: 10px 20px;
+  margin-left: 7rem;
+}
+
+/* side bar */
+
+.side-bar {
+  height: 100%;
+  width: 7rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--primary);
+  overflow-x: hidden;
+}
+
+.logo {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.side-bar-menu a {
+  height: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 12px;
+  color: var(--secondary);
+}
+
+.side-bar a:hover * {
+  color: var(--white);
+}
+
+.side-bar .selected {
+  background-color: var(--secondary);
+}
+
+.side-bar .selected i {
+  color: var(--white);
+}
+
+/* login */
+.login {
+  margin-left: 10rem;
+}
+
+.login-info {
+  margin-right: 10rem;
+}
+
+.login-form {
+  max-width: 20rem;
+}
+
+.login-form input {
+  padding: 10px 10px;
+  line-height: 30px;
+  min-height: 45px;
+  border-color: var(--black);
+}
+
+.login-form input:placeholder-shown {
+  color: var(--black);
+  line-height: 30px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.login-form input:hover {
+  border-color: var(--black);
+}
+
+.login-form button {
+  min-height: 45px;
+  min-width: 10rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: xx-small;
+  vertical-align: center;
+  color: var(--white);
+  background-color: var(--black);
+}
+
+/* top bar */
+
+.search-bar form {
+  background-color: var(--secondary);
+  width: 300px;
+  height: 44px;
+  border-radius: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search-bar input {
+  all: unset;
+  color: var(--white);
+  height: 100%;
+  width: 100%;
+  padding: 6px 10px;
+}
+
+.search-bar input::placeholder {
+  color: var(--white);
+  opacity: 0.1;
+}
+
+.search-bar button {
+  background-color: var(--secondary);
+  all: unset;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+button.btn {
+  background-color: var(--secondary);
+  color: var(--white);
+  padding: 20px 18px;
+  border: none;
+  border-radius: 2px !important;
+}
+
+button.btn-transparent {
+  background-color: transparent;
+  padding: 20px 18px;
+  border: none;
+  border-radius: 2px !important;
+}
+
+button.btn-full {
+  background-color: var(--secondary);
+  color: var(--white);
+  padding: 22px;
+  border: none;
+  border-radius: 2px !important;
+}
+
+button.btn-border {
+  background-color: transparent;
+  color: var(--white);
+  opacity: 0.1;
+  padding: 20px 18px;
+  border: 2px var(--white) solid;
+  border-radius: 2px !important;
+}
+
+button:hover {
+  color: var(--white) !important;
+  opacity: 0.8;
+}
+
+button.btn-border:hover {
+  border-color: var(--white);
+}
+
+.button i {
+  opacity: 0.1;
+}
+
+button:hover i {
+  color: var(--white) !important;
+  opacity: 1;
+}
+
+.search-bar i {
+  color: var(--white);
+  fill: currentColor;
+  font-size: larger;
+  opacity: 0.1;
+}
+
+#optionsContent {
+  display: block;
+  top: 40px;
+}
