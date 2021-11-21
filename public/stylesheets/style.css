@@ -7,6 +7,7 @@
   --secondary: #2A2B31;
   --accent: #78BD38;
   --pale-accent: #b6ff77;
+  --red: #e02817;
   --white: #FFFFFF;
   --pale-grey: #b5b5b5;
   --black: #000000;
@@ -30,8 +31,28 @@ body {
   background-color: #18191D !important;
 }
 
+.height-100 {
+  min-height: 100%;
+}
+
+.width-100 {
+  min-width: 100%;
+}
+
 .accent {
   color: var(--accent) !important;
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+}
+
+.accent-border {
+  border-color: var(--accent) !important;
+}
+
+.pale-grey {
+  color: var(--pale-grey) !important;
 }
 
 .secondary {
@@ -63,11 +84,6 @@ button:focus:not(:active) {
 
 a {
   color: inherit;
-}
-
-a:hover * {
-  opacity: 1;
-  color: black;
 }
 
 h1, h2, h3 {
@@ -280,10 +296,9 @@ button.btn-full {
 
 button.btn-border {
   background-color: transparent;
-  color: var(--white);
-  opacity: 0.1;
+  color: var(--secondary);
   padding: 20px 18px;
-  border: 2px var(--white) solid;
+  border: 2px var(--secondary) solid;
   border-radius: 2px !important;
 }
 
@@ -338,8 +353,16 @@ button.crypto-logo {
   max-width: 50%;
 }
 
+.up {
+  color: var(--accent);
+}
+
+.down {
+  color: var(--red);
+}
+
 .sent .icon {
-  color: red;
+  color: var(--red);
 }
 
 .received .icon {
@@ -352,4 +375,17 @@ button.crypto-logo {
 
 .sold .icon {
   color: deepskyblue;
+}
+
+/* wallets */
+.wallet-add {
+  background-color: transparent;
+  border: var(--primary) dotted 5px;
+}
+.wallet .box {
+  background-color: var(--primary);
+}
+
+.total {
+  font-size: 70px;
 }

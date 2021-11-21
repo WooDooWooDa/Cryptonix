@@ -6,4 +6,34 @@ block nav
 block content
   #main
     +topnav()
+    .overview.is-flex.is-flex-direction-row.is-justify-content-space-between.is-align-items-center.p-5
+      .icon-text.secondary
+        h3.is-bold Overview
+        .icon
+          .fas.fa-ellipsis-v
+      a(href="/wallets/add").accent
+        p.is-bold Add Wallet
+    .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
+      include mixins/smallTransaction
+      each wallet in ["BTC","ETH","ADA","SAFE"]
+        a(href="/wallets/" + wallet).wallet.tile.is-parent.is-4.no-hover
+          .tile.is-child.box.px-3.py-5
+            .is-flex.is-justify-content-space-between.px-4
+              .is-flex.is-flex-direction-row.is-align-items-center
+                button.button.btn-pale.crypto-logo.mr-4
+                  img(src="/images/crypto/btc.png")
+                h2.has-text-white Bitcoin
+              .is-flex.is-flex-direction-column.is-align-items-end
+                h3.is-bold=wallet
+                h1.has-text-white 0.00011
+            canvas#btc
+            +smallTransaction(wallet)
+      a(href="/wallets/add").tile.is-parent.is-4.no-hover
+        .tile.is-child.box.px-3.py-5.wallet-add
+          .is-flex.is-align-items-center.is-justify-content-center.height-100
+            h1.is-bold.primary Add Wallet
 
+
+
+block script
+  //script(src="/javascripts/walletChart.js")

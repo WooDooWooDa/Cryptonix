@@ -35,15 +35,15 @@ block content
 
     .transactions.mx-5.my-6
       each transaction in transactions
-        .box.bg-secondary.p-5.is-justify-content-space-between.is-flex
+        .box.bg-primary.p-5.is-justify-content-space-between.is-flex
           .left.is-flex-direction-row.is-flex.is-flex.is-align-items-center
-            a.icon.mx-5
+            a.icon.mx-5.secondary
               .fas.fa-ellipsis-v.is-size-5
-            .date-time.has-text-white.mx-6
+            .date-time.has-text-white.mx-5
               h3 10:00, 23 Dec 2018
-            button.button.btn-pale.crypto-logo.mx-6
-              img(src="/images/crypto/btc.png")
-            .action(class=transaction.action).mx-6
+            button.button.btn-pale.crypto-logo.mx-5
+              img(src=transaction.crypto.img_url)
+            .action(class=transaction.action).mx-5
               .icon-text
                 .icon.pr-3
                   .fas.fa-arrow-down

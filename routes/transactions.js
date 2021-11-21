@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
     if (!req.session.isLogged) {
         res.redirect('/login');
     }
-    const transactions = [new Transaction(Crypto.BTC, 0.002), new Transaction(Crypto.ETH, 0.01), new Transaction(Crypto.SHIB, 100233)];
+    const transactions = [new Transaction(Crypto.BTC, 0.002), new Transaction(Crypto.ETH, 0.01), new Transaction(Crypto.ADA, 100233), new Transaction(Crypto.ETH, 0.0043)];
     console.log(transactions);
     res.render('transactions', {
         title: "Transactions",
