@@ -353,27 +353,19 @@ button.crypto-logo {
   max-width: 50%;
 }
 
-.up {
+.sent {
+  color: var(--red);
+}
+
+.received {
   color: var(--accent);
 }
 
-.down {
-  color: var(--red);
-}
-
-.sent .icon {
-  color: var(--red);
-}
-
-.received .icon {
-  color: #00ff00;
-}
-
-.bought .icon {
+.bought {
   color: darkorange;
 }
 
-.sold .icon {
+.sold {
   color: deepskyblue;
 }
 

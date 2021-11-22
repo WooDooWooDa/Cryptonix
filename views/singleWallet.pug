@@ -30,8 +30,15 @@ block content
               h3.secondary QR-code
           button.button.btn-full.column.accent-border.is-flex.is-align-items-center.my-3.width-100.p-5
             h3.pale-grey.muted 0x2348907453984503458734503948750734
-      .column.bg-primary.ml-3.p-5
-
+        .history
+          p.pale-grey.is-bold.muted Wallet history:
+          canvas
+      .column.bg-primary.ml-3.p-5.pb-6
+        p.pale-grey.is-bold.muted Past transactions:
+          include mixins/transactionsHelper
+          each transaction in transactions
+            .pt-4
+              +smallTransaction(transaction)
 
 
 

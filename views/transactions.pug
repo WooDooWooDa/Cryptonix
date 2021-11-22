@@ -21,7 +21,7 @@ block content
 
     .transactions-info.is-flex.is-flex-direction-row.px-5.is-justify-content-space-between
       .nb-transactions.is-align-items-end.is-flex
-        h1.is-size-1 2,000
+        h1.is-size-1=transactions.length
         h3.secondary.mb-3.mx-3.is-bold Transactions
         button.button.btn-full.ml-6
           h3.is-bold Export History
@@ -34,20 +34,22 @@ block content
           h3.is-bold RECEIVED
 
     .transactions.mx-5.my-6
+      include mixins/transactionsHelper
       each transaction in transactions
         .box.bg-primary.p-5.is-justify-content-space-between.is-flex
           .left.is-flex-direction-row.is-flex.is-flex.is-align-items-center
             a.icon.mx-5.secondary
               .fas.fa-ellipsis-v.is-size-5
             .date-time.has-text-white.mx-5
-              h3 10:00, 23 Dec 2018
-            button.button.btn-pale.crypto-logo.mx-5
-              img(src=transaction.crypto.img_url)
-            .action(class=transaction.action).mx-5
+              h3=transaction.date
+            a(href="/market/" + transaction.crypto.sigle)
+              button.button.btn-pale.crypto-logo.mx-5
+                img(src=transaction.crypto.img_url)
+            .action.mx-5
               .icon-text
                 .icon.pr-3
-                  .fas.fa-arrow-down
-                h3.has-text-white 0x2348907453984503458734503948750734
+                  +transactionArrow(transaction.action)
+                h3.has-text-white=transaction.otherAdress
           .right.is-flex-direction-row.is-flex.is-flex.is-align-items-center
             .amount.has-text-white.is-flex-direction-row.is-flex
               h1.mr-2=transaction.amount

@@ -15,7 +15,7 @@ block content
         p.is-bold Calculator
     .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
         each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
-          a(href="/market/btc").wallet.tile.is-parent.is-3.no-hover
+          a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
             .tile.is-child.box.px-3.py-5
               .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
                 h1.secondary.is-bold=market
@@ -25,9 +25,9 @@ block content
               canvas
               .is-flex.px-4.is-justify-content-space-between
                 .volume.is-align-items-center.is-flex-direction-row.is-flex
-                  h3.secondary.is-bold Volume:
-                  h3.mx-2.has-text-white 10000
-                  h3.secondary.is-bold=market
-                .value.down
+                  h3.pale-grey.muted.is-bold Volume:
+                  h3.mx-2.pale-grey 10000
+                  h3.pale-grey.muted.is-bold=market
+                .value.sent
                   h3 +0.44
 

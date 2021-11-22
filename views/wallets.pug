@@ -14,7 +14,7 @@ block content
       a(href="/wallets/add").accent
         p.is-bold Add Wallet
     .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
-      include mixins/smallTransaction
+      include mixins/transactionsHelper
       each wallet in ["BTC","ETH","ADA","SAFE"]
         a(href="/wallets/" + wallet).wallet.tile.is-parent.is-4.no-hover
           .tile.is-child.box.px-3.py-5
@@ -26,8 +26,9 @@ block content
               .is-flex.is-flex-direction-column.is-align-items-end
                 h3.is-bold=wallet
                 h1.has-text-white 0.00011
-            canvas#btc
-            +smallTransaction(wallet)
+            .history
+              canvas#btc
+            +smallTransaction(lastTransaction)
       a(href="/wallets/add").tile.is-parent.is-4.no-hover
         .tile.is-child.box.px-3.py-5.wallet-add
           .is-flex.is-align-items-center.is-justify-content-center.height-100
