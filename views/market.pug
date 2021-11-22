@@ -13,21 +13,23 @@ block content
           .fas.fa-ellipsis-v
       a(href="/calculator").accent
         p.is-bold Calculator
-    .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
-        each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
-          a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
-            .tile.is-child.box.px-3.py-5
-              .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
-                h1.secondary.is-bold=market
-                .is-flex.is-flex-direction-row.has-text-white
-                  h2.pr-2 0.00011
-                  h2.is-family-monospace CAD
-              canvas
-              .is-flex.px-4.is-justify-content-space-between
-                .volume.is-align-items-center.is-flex-direction-row.is-flex
-                  h3.pale-grey.muted.is-bold Volume:
-                  h3.mx-2.pale-grey 10000
-                  h3.pale-grey.muted.is-bold=market
-                .value.sent
-                  h3 +0.44
+    .market.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
+      each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
+        a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
+          .tile.is-child.box.px-3.py-5
+            .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
+              h1.secondary.is-bold=market
+              .is-flex.is-flex-direction-row.has-text-white
+                h2.pr-2 120.34
+                h2.is-family-monospace $CAD
+            canvas
+            .is-flex.px-4.is-justify-content-space-between
+              .volume.is-align-items-center.is-flex-direction-row.is-flex
+                h3.pale-grey.muted.is-bold Volume:
+                h3.mx-2.pale-grey 10000
+                h3.pale-grey.muted.is-bold=market
+              .value.sent
+                h3 +0.44 %
+      include mixins/marketHelper
+      +followAnother(1)
 

@@ -1,13 +1,14 @@
 mixin smallTransaction(transaction)
-  .last-transaction.bg-secondary.mx-4.p-4
-    .is-flex.is-justify-content-space-between.has-text-white
-      p.date=transaction.date
-      .is-flex.is-flex-direction-row.is-align-items-center
-        +transactionArrow(transaction.action)
-        p.amount.ml-2(class=transaction.action)=transaction.amount
-        p.pl-2=transaction.crypto.sigle
-    .pale-grey.muted.pt-4
-      p=transaction.otherAdress
+  .pt-4
+    .last-transaction.bg-secondary.mx-4.p-4
+      .is-flex.is-justify-content-space-between.has-text-white
+        p.date=transaction.date
+        .is-flex.is-flex-direction-row.is-align-items-center
+          +transactionArrow(transaction.action)
+          p.amount.ml-2(class=transaction.action)=transaction.amount
+          p.pl-2=transaction.crypto.sigle
+      .pale-grey.muted.pt-4
+        p=transaction.otherAdress
 
 mixin transactionArrow(action)
   case action

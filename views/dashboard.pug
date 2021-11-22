@@ -6,3 +6,59 @@ block nav
 block content
   #main
     +topnav()
+    .overview.is-flex.is-flex-direction-row.is-justify-content-space-between.is-align-items-center.p-5
+      .icon-text.secondary
+        h3.is-bold Overview
+        .icon
+          .fas.fa-ellipsis-v
+    .columns.mx-3
+      .column.is-8
+        .columns
+          .column.is-5
+            .bg-primary.p-5.height-100
+              p.pale-grey.is-bold.muted Current balance:
+                .is-flex.is-flex-direction-row.py-3
+                  h1.has-text-white.total 1230.20
+                  h2.secondary.is-bold.m-4.is-family-monospace $CAD
+              .is-flex.is-justify-content-space-between.py-5
+                .transactions.is-flex.is-flex-direction-row.is-align-items-end
+                  h1.has-text-white=transactions.length
+                  h3.secondary.is-bold.pl-2 Transactions
+                .wallets.is-flex
+                  a(href="/wallets")
+                    button.btn-full.button.bg-accent
+                      h3 #{4} wallets
+          .column.is-7
+            .is-flex.is-justify-content-space-between.is-align-items-center
+              h2.has-text-white My wallets
+              a(href="/wallets/add")
+                p.accent.is-bold Add wallet
+            .wallets.tile.is-ancestor.is-flex.is-flex-wrap-wrap.pt-3
+              each wallet in wallets
+                a(href="/wallets/" + wallet).wallet.tile.is-parent.is-4.no-hover
+                  .tile.is-child.box.px-3.py-5
+                    .px-3
+                      .is-flex.is-flex-direction-row.is-align-items-center.is-flex.is-justify-content-space-between
+                        h2.is-bold=wallet
+                        button.button.btn-pale.crypto-logo
+                          img(src="/images/crypto/btc.png")
+                    .is-flex.is-justify-content-space-between.px-3.pt-2
+                      h3.has-text-white Bitcoin
+        .columns
+          .column
+            .is-flex.is-justify-content-space-between.is-align-items-center
+              h2.has-text-white Market
+              a(href="/calculator").accent
+                p.is-bold Calculator
+            .wallets.tile.is-ancestor.is-flex.is-flex-wrap-wrap.pt-3
+              include mixins/marketHelper
+              each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
+                +smallMarket(market)
+              +followAnother(2)
+      .column.is-4
+        .bg-primary.p-5
+          p.pale-grey.is-bold.muted Last transactions:
+          include mixins/transactionsHelper
+          each transaction in transactions
+              +smallTransaction(transaction)
+

@@ -1,0 +1,19 @@
+mixin smallMarket(market)
+  a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
+    .tile.is-child.box.px-3.py-5
+      .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
+        h1.secondary.is-bold=market
+        .is-flex.is-flex-direction-row.has-text-white
+          h3.pr-2 120.34
+          h3.is-family-monospace $CAD
+      .value.sent.px-4.is-flex.is-justify-content-end
+        h3 +0.44 %
+
+mixin followAnother(size)
+  a(href="/market/add").tile.is-parent.no-hover.is-3
+    .tile.is-child.box.px-3.py-5.wallet-add
+      .is-flex.is-align-items-center.is-justify-content-center.height-100
+        if size === 1
+          h1.is-bold.primary Follow another
+        else if size === 2
+          h2.is-bold.primary Follow another

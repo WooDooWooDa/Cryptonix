@@ -12,7 +12,18 @@ router.get('/', function(req, res, next) {
     res.render('wallets', {
         title: "Wallets",
         account: req.session.account,
+        wallets: ["FIAT","BTC","ETH","ADA","SAFE"],
         lastTransaction: new Transaction(Crypto.ETH, 0.001)
+    });
+});
+
+router.get('/add', function (req, res) {
+    if (!req.session.isLogged) {
+        res.redirect('/login');
+    }
+    res.render('addWallet', {
+        title: req.params.crypto,
+        account: req.session.account
     });
 });
 

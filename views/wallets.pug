@@ -15,7 +15,7 @@ block content
         p.is-bold Add Wallet
     .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
       include mixins/transactionsHelper
-      each wallet in ["BTC","ETH","ADA","SAFE"]
+      each wallet in wallets
         a(href="/wallets/" + wallet).wallet.tile.is-parent.is-4.no-hover
           .tile.is-child.box.px-3.py-5
             .is-flex.is-justify-content-space-between.px-4
@@ -28,13 +28,15 @@ block content
                 h1.has-text-white 0.00011
             .history
               canvas#btc
-            +smallTransaction(lastTransaction)
+              if lastTransaction !== null
+                +smallTransaction(lastTransaction)
+              else
+                h2.pt-4.pale-grey.muted No transaction
+
       a(href="/wallets/add").tile.is-parent.is-4.no-hover
         .tile.is-child.box.px-3.py-5.wallet-add
           .is-flex.is-align-items-center.is-justify-content-center.height-100
             h1.is-bold.primary Add Wallet
-
-
 
 block script
   //script(src="/javascripts/walletChart.js")
