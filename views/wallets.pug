@@ -27,7 +27,7 @@ block content
                 h3.is-bold=wallet
                 h1.has-text-white 0.00011
             .history
-              canvas#btc
+              canvas(data-chart=wallet).m-3
               if lastTransaction !== null
                 +smallTransaction(lastTransaction)
               else
@@ -39,4 +39,4 @@ block content
             h1.is-bold.primary Add Wallet
 
 block script
-  //script(src="/javascripts/walletChart.js")
+  script(src="/javascripts/walletChart.js" type="module")

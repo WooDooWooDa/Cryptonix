@@ -20,16 +20,17 @@ block content
             .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
               h1.secondary.is-bold=market
               .is-flex.is-flex-direction-row.has-text-white
-                h2.pr-2 120.34
+                h2.pr-2(data-value=market) 120.34
                 h2.is-family-monospace $CAD
-            canvas
+            canvas(data-chart=market).m-3
             .is-flex.px-4.is-justify-content-space-between
               .volume.is-align-items-center.is-flex-direction-row.is-flex
                 h3.pale-grey.muted.is-bold Volume:
-                h3.mx-2.pale-grey 10000
+                h3.mx-2.pale-grey(data-volume=market) 0
                 h3.pale-grey.muted.is-bold=market
-              .value.sent
-                h3 +0.44 %
+              h3.value(data-percentage=market) 0 %
       include mixins/marketHelper
       +followAnother(1)
 
+block script
+  script(src="/javascripts/marketChart.js" type="module")

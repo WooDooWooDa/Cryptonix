@@ -1,53 +1,93 @@
-var years = [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050];
-// For drawing the lines
-var africa = [86,114,106,106,107,111,133,221,783,2478];
-var asia = [282,350,411,502,635,809,947,1402,3700,5267];
-var europe = [168,170,178,190,203,276,408,547,675,734];
-var latinAmerica = [40,20,10,16,24,38,74,167,508,784];
-var northAmerica = [6,3,2,2,7,26,82,172,312,433];
+//import {drawChartNoAxisNoLegend, say} from "./chartHelper.js";
+var data = [86,783,221,106,450,600,133,221,800,850];
+
+let cryptoApiUrl = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
 
 $(document).ready(function() {
-    var btcChart = $("#btc");
-    drawChart(btcChart);
+    $("[data-chart]").each(function () {
+        drawChartNoAxisNoLegend(this, data);
+    });
+
+    if ($("#walletHistory") !== null) {
+        drawChart($("#walletHistory"), data);
+    }
+
+    // $.ajax({
+    //     url: cryptoApiUrl,
+    //     headers: {
+    //         'X-CMC_PRO_API_KEY': '209a4243-3bbb-4aa0-8a16-405e8b353a3f'
+    //     },
+    //     type: "GET", /* or type:"GET" or type:"PUT" */
+    //     dataType: "json",
+    //     data: {
+    //     },
+    //     success: function (result) {
+    //         console.log(result);
+    //     },
+    //     error: function () {
+    //         console.log("error");
+    //     }
+    // });
 });
 
-function drawChart(canvas) {
-    var myChart = new Chart(canvas, {
+function drawChartNoAxisNoLegend(canvas, data) {
+    new Chart(canvas, {
         type: 'line',
         data: {
-            labels: years,
+            labels: data,
             datasets: [
                 {
-                    data: africa,
-                    label: "Africa",
-                    borderColor: "#3e95cd",
-                    fill: false
-                },
-                {
-                    data: asia,
-                    label: "Asia",
-                    borderColor: "#3e95cd",
-                    fill: false
-                },
-                {
-                    data: europe,
-                    label: "Europe",
-                    borderColor: "#3e95cd",
-                    fill: false
-                },
-                {
-                    data: latinAmerica,
-                    label: "Latin America",
-                    borderColor: "#3e95cd",
-                    fill: false
-                },
-                {
-                    data: northAmerica,
-                    label: "North America",
-                    borderColor: "#3e95cd",
+                    data: data,
+                    borderColor: getColorOfChart(data),
                     fill: false
                 }
             ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            },
+            scales: {
+                x: {
+                    display: false
+                },
+                y: {
+                    display: false
+                }
+            }
         }
     });
+}
+
+function drawChart(canvas, data) {
+    new Chart(canvas, {
+        type: 'line',
+        data: {
+            labels: data,
+            datasets: [
+                {
+                    data: data,
+                    borderColor: getColorOfChart(data),
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+            }
+        }
+    });
+}
+
+function getColorOfChart(data) {
+    if (data.at(-1) > data.at(-2)) {
+        return "#78BD38"
+    } else {
+        return "#e02817"
+    }
 }

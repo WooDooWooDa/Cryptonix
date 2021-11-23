@@ -32,7 +32,7 @@ block content
             h3.pale-grey.muted 0x2348907453984503458734503948750734
         .history
           p.pale-grey.is-bold.muted Wallet history:
-          canvas
+          canvas#walletHistory.m-3
       .column.bg-primary.ml-3.p-5.pb-6
         p.pale-grey.is-bold.muted Past transactions:
           include mixins/transactionsHelper
@@ -40,5 +40,5 @@ block content
             .pt-4
               +smallTransaction(transaction)
 
-
-
+block script
+  script(src="/javascripts/walletChart.js")
