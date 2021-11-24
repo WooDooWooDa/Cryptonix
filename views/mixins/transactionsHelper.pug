@@ -8,7 +8,7 @@ mixin smallTransaction(transaction)
           p.amount.ml-2(class=transaction.action)=transaction.amount
           p.pl-2=transaction.crypto.sigle
       .pale-grey.muted.pt-4
-        p=transaction.otherAdress
+        p=transaction.otherAddress
 
 mixin transactionArrow(action)
   case action

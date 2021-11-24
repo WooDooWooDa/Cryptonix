@@ -22,14 +22,17 @@ block content
                   h2.secondary.is-bold.m-4.is-family-monospace $CAD
               .is-flex.is-justify-content-space-between.py-5
                 .transactions.is-flex.is-flex-direction-row.is-align-items-end
-                  h1.has-text-white=transactions.length
+                  - var totalTransaction = 0
+                    each wallet in wallets
+                      - totalTransaction += wallet.transactions.length
+                  h1.has-text-white=totalTransaction
                   h3.secondary.is-bold.pl-2 Transactions
                 .wallets.is-flex
                   a(href="/wallets")
                     button.btn-full.button.bg-accent
-                      h3 #{4} wallets
+                      h3 #{wallets.length} wallets
               .fiat.is-flex
-                a(href="/fuellefiat").width-100
+                a(href="/wallets/FIAT").width-100
                   button.button.btn-border.column.accent-border.is-flex.is-align-items-center.width-100
                     h3.has-text-white Add funds
           .column.is-7
@@ -39,15 +42,15 @@ block content
                 p.accent.is-bold Add wallet
             .wallets.tile.is-ancestor.is-flex.is-flex-wrap-wrap.pt-3
               each wallet in wallets
-                a(href="/wallets/" + wallet).wallet.tile.is-parent.is-4.no-hover
+                a(href="/wallets/" + wallet.crypto.sigle).wallet.tile.is-parent.is-4.no-hover
                   .tile.is-child.box.px-3.py-5
                     .px-3
                       .is-flex.is-flex-direction-row.is-align-items-center.is-flex.is-justify-content-space-between
-                        h2.is-bold=wallet
+                        h2.is-bold=wallet.crypto.sigle
                         button.button.btn-pale.crypto-logo
-                          img(src="/images/crypto/btc.png")
-                    .is-flex.is-justify-content-space-between.px-3.pt-2
-                      h3.has-text-white Bitcoin
+                          img(src=wallet.crypto.img_url)
+                    .is-flex.is-justify-content-space-between.px-3
+                      h3.has-text-white=wallet.crypto.name
         .columns
           .column
             .is-flex.is-justify-content-space-between.is-align-items-center
@@ -61,8 +64,8 @@ block content
               +followAnother(2)
       .column.is-4
         .bg-primary.p-5
-          p.pale-grey.is-bold.muted Last transactions:
+          p.pale-grey.is-bold.muted Wallet's last transactions:
           include mixins/transactionsHelper
-          each transaction in transactions
-              +smallTransaction(transaction)
+          each wallet in wallets
+            +smallTransaction(wallet.transactions[0])
 

@@ -5,29 +5,32 @@ let cryptoApiUrl = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings
 
 $(document).ready(function() {
     $("[data-chart]").each(function () {
-        drawChartNoAxisNoLegend(this, data);
+        let coin = this.dataset.chart;
+        let canvas = this;
+        $.ajax({
+            url: "http://10.10.4.37:3000/wallets/" + coin + "/history",
+            type: "GET",
+            data: {},
+            error: function () {
+                console.log("Error loading wallet history chart");
+            }
+        }).done(function(data) {
+            drawChartNoAxisNoLegend(canvas, data);
+        });
     });
 
     if ($("#walletHistory") !== null) {
-        drawChart($("#walletHistory"), data);
+        $.ajax({
+            url: "http://10.10.4.37:3000/wallets/ETH/history",
+            type: "GET",
+            data: {},
+            error: function () {
+                console.log("error");
+            }
+        }).done(function(data) {
+            drawChart($("#walletHistory"), data);
+        });
     }
-
-    // $.ajax({
-    //     url: cryptoApiUrl,
-    //     headers: {
-    //         'X-CMC_PRO_API_KEY': '209a4243-3bbb-4aa0-8a16-405e8b353a3f'
-    //     },
-    //     type: "GET", /* or type:"GET" or type:"PUT" */
-    //     dataType: "json",
-    //     data: {
-    //     },
-    //     success: function (result) {
-    //         console.log(result);
-    //     },
-    //     error: function () {
-    //         console.log("error");
-    //     }
-    // });
 });
 
 function drawChartNoAxisNoLegend(canvas, data) {

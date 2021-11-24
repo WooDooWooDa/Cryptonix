@@ -1,19 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const {CanvasRenderService} = require('chartjs-node-canvas');
 const {Transaction} = require("../models/Transaction");
 const {Crypto} = require("../models/Cryptos");
+const {Wallet} = require("../models/Wallet");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if (!req.session.isLogged) {
         res.redirect('/login');
     }
+    let wallets = [new Wallet(Crypto.FIAT, 200), new Wallet(Crypto.ETH, 0.002), new Wallet(Crypto.BTC, 0.00004), new Wallet(Crypto.ADA, 1020003)];
     res.render('wallets', {
         title: "Wallets",
         account: req.session.account,
-        wallets: ["FIAT","BTC","ETH","ADA","SAFE"],
-        lastTransaction: new Transaction(Crypto.ETH, 0.001)
+        wallets: wallets
     });
 });
 
@@ -31,12 +31,18 @@ router.get('/:crypto', function (req, res) {
     if (!req.session.isLogged) {
         res.redirect('/login');
     }
-    const transactions = [new Transaction(Crypto.BTC, 0.002), new Transaction(Crypto.ETH, 0.01), new Transaction(Crypto.ADA, 100233), new Transaction(Crypto.ETH, 0.0043)];
+    let wallet = new Wallet(Crypto[req.params.crypto], 1002);
     res.render('singleWallet', {
         title: req.params.crypto,
         account: req.session.account,
-        transactions: transactions
+        wallet: wallet,
+        transactions: wallet.transactions
     });
+});
+
+router.get('/:crypto/history', function (req, res) {
+    let wallet = new Wallet(Crypto[req.params.crypto], 1002);
+    res.json(wallet.balanceHistory)
 });
 
 module.exports = router;

@@ -1,6 +1,7 @@
 var express = require('express');
 const {Transaction} = require("../models/Transaction");
 const {Crypto} = require("../models/Cryptos");
+const {Wallet} = require("../models/Wallet");
 var router = express.Router();
 
 /* GET home page. */
@@ -8,12 +9,12 @@ router.get('/', function(req, res, next) {
     if (!req.session.isLogged) {
         res.redirect('/login');
     }
-    const transactions = [new Transaction(Crypto.BTC, 0.002), new Transaction(Crypto.ETH, 0.01), new Transaction(Crypto.ADA, 100233), new Transaction(Crypto.ETH, 0.0043)];
+    let wallets = [new Wallet(Crypto.FIAT, 200), new Wallet(Crypto.ETH, 0.002), new Wallet(Crypto.BTC, 0.00004), new Wallet(Crypto.ADA, 1020003)];
     res.render('dashboard', {
         title: "Dashboard",
+        totalBalance: 11250.50,
         account: req.session.account,
-        transactions: transactions,
-        wallets: ["FIAT","BTC","ETH","ADA","SAFE"]
+        wallets: wallets
     });
 });
 

@@ -15,30 +15,30 @@ block content
     .wallet.columns.mx-5.py-5
       .column.bg-primary.mr-3.p-5.is-5
         p.pale-grey.is-bold.muted Current balance:
-        .is-flex.is-flex-direction-row.py-3
-          h1.has-text-white.total 0.00012
-          h2.secondary.is-bold.m-4 BTC
+        .is-flex.is-flex-direction-row.pt-3
+          h1.has-text-white.total=wallet.balance
+          h2.secondary.is-bold.mx-4.mt-4=wallet.crypto.sigle
+        p.secondary.is-bold.mb-4 $CAD Value : #{wallet.value}
         .actions.is-flex.is-flex-direction-row.is-align-items-center
-          button.button.bg-accent.btn.column.mx-5.is-flex.is-align-items-center
+          button.button.bg-accent.btn.column.mx-4.is-flex.is-align-items-center
             h3 Send
-          button.button.btn-border.column.mx-5.accent-border.is-flex.is-align-items-center
+          button.button.btn-border.column.mx-4.accent-border.is-flex.is-align-items-center
             h3.has-text-white Receive
         .address.my-6
-          .is-flex.is-justify-content-space-between
-            p.pale-grey.is-bold.muted Your wallet adress:
-            a(href="#")
+          .is-flex.is-justify-content-space-between.is-align-items-center
+            p.pale-grey.is-bold.muted Your wallet address:
+            button#toggleQRCode.button.btn-transparent
               h3.secondary QR-code
           button.button.btn-full.column.accent-border.is-flex.is-align-items-center.my-3.width-100.p-5
-            h3.pale-grey.muted 0x2348907453984503458734503948750734
+            h3.pale-grey.muted=wallet.address
         .history
-          p.pale-grey.is-bold.muted Wallet history:
+          p.pale-grey.is-bold.muted Balance history:
           canvas#walletHistory.m-3
       .column.bg-primary.ml-3.p-5.pb-6
         p.pale-grey.is-bold.muted Past transactions:
           include mixins/transactionsHelper
-          each transaction in transactions
-            .pt-4
-              +smallTransaction(transaction)
+          each transaction in wallet.transactions
+            +smallTransaction(transaction)
 
 block script
   script(src="/javascripts/walletChart.js")

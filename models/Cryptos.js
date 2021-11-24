@@ -1,6 +1,11 @@
 const img_base_url = "/images/crypto/";
 
 const Crypto = {
+    FIAT: {
+        sigle: "FIAT",
+        name: "$CAD",
+        img_url: img_base_url + "fiat.png"
+    },
     BTC: {
         sigle: "BTC",
         name: "Bitcoin",
@@ -8,7 +13,7 @@ const Crypto = {
     },
     ETH: {
         sigle: "ETH",
-        name: "Etherium",
+        name: "Ethereum",
         img_url: img_base_url + "eth.png"
     },
     ADA: {
