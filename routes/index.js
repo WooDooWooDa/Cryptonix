@@ -1,6 +1,7 @@
 var express = require('express');
 const { check,validationResult } = require('express-validator');
 const { Account } = require('../models/Account');
+const UserBroker = require('../Brokers/UserBroker');
 var router = express.Router();
 
 /* GET home page. */
@@ -25,8 +26,7 @@ router.post('/login',
     check('password', 'Password is required').trim().escape().notEmpty().withMessage('Password is required')
         .custom((value, { req }) => {
           if (req.body.password !== "password")
-            throw new Error('Incorrect Password ');
-          // Indicates the success of this synchronous custom validator
+            throw new Error('Incorrect Password');
           return true;
         }),
     (req,res) => {
@@ -55,7 +55,12 @@ router.post('/signup',
     check('firstname', 'Firstname is required').trim().escape().notEmpty(),
     check('lastname', 'Lastname is required').trim().escape().notEmpty(),
     check('email', 'Email is required').trim().escape().notEmpty()
-        .isEmail().withMessage('Email must be valid'),
+        .isEmail().withMessage('Email must be valid')
+        .custom((value) => {
+          if (value !== "email-deja-used")
+            throw new Error('Email already used');
+          return true;
+        }),
     check('phone', 'Phone is required').trim().escape().notEmpty()
         .isMobilePhone("en-CA").withMessage('Phone must be valid'),
     check('password', 'Password is required').trim().escape().notEmpty(),

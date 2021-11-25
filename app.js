@@ -5,6 +5,7 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let session = require('express-session');
 let flash = require('connect-flash');
+let mongoClient = require('mongodb').MongoClient;
 
 let indexRouter = require('./routes/index');
 let dashboardRouter = require('./routes/dashboard');
