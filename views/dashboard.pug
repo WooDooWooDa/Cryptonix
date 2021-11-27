@@ -18,7 +18,7 @@ block content
             .bg-primary.p-5.height-100
               p.pale-grey.is-bold.muted Current balance:
                 .is-flex.is-flex-direction-row.py-3
-                  h1.has-text-white.total 1230.20
+                  h1.has-text-white.total=totalBalance
                   h2.secondary.is-bold.m-4.is-family-monospace $CAD
               .is-flex.is-justify-content-space-between.py-5
                 .transactions.is-flex.is-flex-direction-row.is-align-items-end
@@ -41,16 +41,16 @@ block content
               a(href="/wallets/add")
                 p.accent.is-bold Add wallet
             .wallets.tile.is-ancestor.is-flex.is-flex-wrap-wrap.pt-3
-              each wallet in wallets
-                a(href="/wallets/" + wallet.crypto.sigle).wallet.tile.is-parent.is-4.no-hover
-                  .tile.is-child.box.px-3.py-5
-                    .px-3
-                      .is-flex.is-flex-direction-row.is-align-items-center.is-flex.is-justify-content-space-between
-                        h2.is-bold=wallet.crypto.sigle
-                        button.button.btn-pale.crypto-logo
-                          img(src=wallet.crypto.img_url)
-                    .is-flex.is-justify-content-space-between.px-3
-                      h3.has-text-white=wallet.crypto.name
+               each wallet in wallets
+                 a(href="/wallets/" + wallet.crypto.symbol).wallet.tile.is-parent.is-4.no-hover
+                   .tile.is-child.box.px-3.py-5
+                     .px-3
+                       .is-flex.is-flex-direction-row.is-align-items-center.is-flex.is-justify-content-space-between
+                         h2.is-bold=wallet.crypto.symbol
+                         button.button.btn-pale.crypto-logo
+                           img(src=wallet.crypto.img_url)
+                     .is-flex.is-justify-content-space-between.px-3
+                       h3.has-text-white=wallet.crypto.name
         .columns
           .column
             .is-flex.is-justify-content-space-between.is-align-items-center
@@ -67,5 +67,8 @@ block content
           p.pale-grey.is-bold.muted Wallet's last transactions:
           include mixins/transactionsHelper
           each wallet in wallets
-            +smallTransaction(wallet.transactions[0])
+            if wallet.transactions.length > 0
+              +smallTransaction(wallet.transactions[0])
+            else
+              h3.p-4.pale-grey No transactions in wallet for #{wallet.crypto.name}
 

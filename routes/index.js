@@ -1,10 +1,13 @@
 var express = require('express');
 const { check,validationResult } = require('express-validator');
 const { Account } = require('../models/Account');
-const UserBroker = require('../Brokers/UserBroker');
+const passwordHash = require('password-hash');
+const {MongoClient: mongoClient} = require("mongodb");
+const {Wallet} = require("../models/Wallet");
+const {Crypto} = require("../models/Cryptos");
 var router = express.Router();
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.redirect('/login');
 });
@@ -25,7 +28,7 @@ router.post('/login',
         .isEmail().withMessage('Email must be valid'),
     check('password', 'Password is required').trim().escape().notEmpty().withMessage('Password is required')
         .custom((value, { req }) => {
-          if (req.body.password !== "password")
+          if (req.body.password === "password-is-good")
             throw new Error('Incorrect Password');
           return true;
         }),
@@ -38,9 +41,7 @@ router.post('/login',
     return res.redirect('/login');
   }
 
-  req.session.account = new Account('jérémie', 'login');
-  req.session.isLogged = true;
-  res.redirect('/dashboard');
+  login(req, res);
 });
 
 router.get('/signup', (req, res) => {
@@ -57,7 +58,7 @@ router.post('/signup',
     check('email', 'Email is required').trim().escape().notEmpty()
         .isEmail().withMessage('Email must be valid')
         .custom((value) => {
-          if (value !== "email-deja-used")
+          if (value === "email-deja-used")
             throw new Error('Email already used');
           return true;
         }),
@@ -73,7 +74,7 @@ router.post('/signup',
     return res.redirect('/signup');
   }
 
-  req.session.account = new Account(req.body.firstname, req.body.lastname);
+  req.session.account = insertAccount(req.body);
   req.session.isLogged = true;
   res.redirect('/dashboard');
 });
@@ -83,7 +84,51 @@ router.get('/logout',(req,res) => {
   res.redirect('/');
 });
 
-module.exports = router;
+//functions
+function login(req, res) {
+  mongoClient.connect('mongodb://localhost:27017', function(err, client) {
+    if (err) reject(err);
+    let db = client.db('cryptonix');
+    db.collection('users').findOne({email: req.body.email}, {_id: false}).then(function (data) {
+      if (err) throw err;
+      client.close();
+      if (data == null) {
+        console.log("account not found");
+        return wrongCredentials(req, res);
+      } else {
+        var account = new Account(data);
+        if (!account.verifyPassword(req.body.password)) {
+          console.log("password invalid");
+          return wrongCredentials(req, res);
+        }
+      }
+      req.session.account = account;
+      req.session.isLogged = true;
+      res.redirect('/dashboard');
+    });
+  });
+}
+
+function insertAccount(data) {
+  data.password = passwordHash.generate(data.password, {algorithm: 'sha256', saltLength: 32})
+  let account = new Account(data);
+  account.wallets.push(new Wallet(Crypto.FIAT))
+  mongoClient.connect('mongodb://localhost:27017', function(err, client) {
+    if (err) reject(err);
+    let db = client.db('cryptonix');
+    db.collection('users').insertOne(account, function (err, result) {
+      if (err) throw err;
+      client.close();
+    })
+  });
+  return account;
+}
+
+function wrongCredentials(req, res) {
+  req.flash('form', req.body);
+  req.flash('errors', [{msg: "Invalid credentials..."}]);
+  res.redirect("/login");
+}
 
 function onlyMsg(errors) {
   let data = [];
@@ -94,3 +139,5 @@ function onlyMsg(errors) {
   });
   return data;
 }
+
+module.exports = router;

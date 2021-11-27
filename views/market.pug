@@ -14,21 +14,21 @@ block content
       a(href="/calculator").accent
         p.is-bold Calculator
     .market.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
-      each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
-        a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
+      each market in markets
+        a(href="/market/" + market.symbol).wallet.tile.is-parent.is-3.no-hover
           .tile.is-child.box.px-3.py-5
             .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
-              h1.secondary.is-bold=market
-              .is-flex.is-flex-direction-row.has-text-white
-                h2.pr-2(data-value=market) 120.34
-                h2.is-family-monospace $CAD
-            canvas(data-chart=market).m-3
+              h2.secondary.is-bold=market.name
+              .is-flex.is-flex-direction-row.has-text-white.is-align-items-center
+                h2.pr-2(data-value=market.symbol)=market.value
+                h3.is-family-monospace $CAD
+            canvas(data-chart=market.symbol).m-3
             .is-flex.px-4.is-justify-content-space-between
               .volume.is-align-items-center.is-flex-direction-row.is-flex
                 h3.pale-grey.muted.is-bold Volume:
-                h3.mx-2.pale-grey(data-volume=market) 0
-                h3.pale-grey.muted.is-bold=market
-              h3.value(data-percentage=market) 0 %
+                h3.mx-2.pale-grey(data-volume=market.symbol)=market.volume
+                h3.pale-grey.muted.is-bold=market.symbol
+              h3.value(data-percentage=market.symbol) 0 %
       include mixins/marketHelper
       +followAnother(1)
 

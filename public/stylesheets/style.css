@@ -39,6 +39,10 @@ body {
   min-width: 100%;
 }
 
+.no-border {
+  border: none !important;
+}
+
 .accent {
   color: var(--accent) !important;
 }

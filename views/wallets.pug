@@ -16,7 +16,7 @@ block content
     .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
       include mixins/transactionsHelper
       each wallet in wallets
-        a(href="/wallets/" + wallet.crypto.sigle).wallet.tile.is-parent.is-4.no-hover
+        a(href="/wallets/" + wallet.crypto.symbol).wallet.tile.is-parent.is-4.no-hover
           .tile.is-child.box.px-3.py-5
             .is-flex.is-justify-content-space-between.px-4
               .is-flex.is-flex-direction-row.is-align-items-center
@@ -24,14 +24,14 @@ block content
                   img(src=wallet.crypto.img_url)
                 h2.has-text-white=wallet.crypto.name
               .is-flex.is-flex-direction-column.is-align-items-end
-                h3.is-bold=wallet.crypto.sigle
+                h3.is-bold=wallet.crypto.symbol
                 h1.has-text-white=wallet.balance
             .history
-              canvas(data-chart=wallet.crypto.sigle).m-3
-              if wallet.transactions[wallet.transactions.length - 1] !== null
+              canvas(data-chart=wallet.crypto.symbol).m-3
+              if wallet.transactions.length > 0
                 +smallTransaction(wallet.transactions[wallet.transactions.length - 1])
               else
-                h2.pt-4.pale-grey.muted.mx-3 No transaction
+                h3.pt-4.pale-grey.muted.mx-3 No transaction to show
 
       a(href="/wallets/add").tile.is-parent.is-4.no-hover
         .tile.is-child.box.px-3.py-5.wallet-add

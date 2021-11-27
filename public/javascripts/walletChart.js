@@ -7,6 +7,7 @@ $(document).ready(function() {
     $("[data-chart]").each(function () {
         let coin = this.dataset.chart;
         let canvas = this;
+        console.log("hereee")
         $.ajax({
             url: "http://10.10.4.37:3000/wallets/" + coin + "/history",
             type: "GET",
@@ -18,19 +19,6 @@ $(document).ready(function() {
             drawChartNoAxisNoLegend(canvas, data);
         });
     });
-
-    if ($("#walletHistory") !== null) {
-        $.ajax({
-            url: "http://10.10.4.37:3000/wallets/ETH/history",
-            type: "GET",
-            data: {},
-            error: function () {
-                console.log("error");
-            }
-        }).done(function(data) {
-            drawChart($("#walletHistory"), data);
-        });
-    }
 });
 
 function drawChartNoAxisNoLegend(canvas, data) {

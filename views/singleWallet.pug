@@ -17,7 +17,7 @@ block content
         p.pale-grey.is-bold.muted Current balance:
         .is-flex.is-flex-direction-row.pt-3
           h1.has-text-white.total=wallet.balance
-          h2.secondary.is-bold.mx-4.mt-4=wallet.crypto.sigle
+          h2.secondary.is-bold.mx-4.mt-4=wallet.crypto.symbol
         p.secondary.is-bold.mb-4 $CAD Value : #{wallet.value}
         .actions.is-flex.is-flex-direction-row.is-align-items-center
           button.button.bg-accent.btn.column.mx-4.is-flex.is-align-items-center
@@ -33,12 +33,16 @@ block content
             h3.pale-grey.muted=wallet.address
         .history
           p.pale-grey.is-bold.muted Balance history:
-          canvas#walletHistory.m-3
+          canvas(data-chart=wallet.crypto.symbol).m-3
       .column.bg-primary.ml-3.p-5.pb-6
         p.pale-grey.is-bold.muted Past transactions:
           include mixins/transactionsHelper
-          each transaction in wallet.transactions
-            +smallTransaction(transaction)
+          if wallet.transactions.length === 0
+            h2.pt-4.pale-grey.muted.mx-3 No transaction to show
+          else
+            each transaction in wallet.transactions
+              +smallTransaction(transaction)
+
 
 block script
   script(src="/javascripts/walletChart.js")
