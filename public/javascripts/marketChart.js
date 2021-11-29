@@ -1,5 +1,14 @@
 
 $(document).ready(function() {
+    // $.ajax({
+    //     url: "http://api.nomics.com/v1/currencies?key=42019047560755796b82a1e4b526309c1be84a5e&ids=BTC",
+    //     type: "GET",
+    //     error: function () {
+    //         console.log("Error");
+    //     }
+    // }).done(function(data) {
+    //     console.log(data);
+    // });
     $('[data-chart]').each(function () {
         let data = getRandomValue();
         drawChartNoAxisNoLegend(this, data);
@@ -40,16 +49,15 @@ function drawChartNoAxisNoLegend(canvas, data) {
 }
 
 function setPercentage(data, elem) {
-    let percentage = (data.at(-2) / data.at(-1)).toPrecision(2);
-    let op;
+    let percentage = (((data.at(-1) / data.at(-2)) - 1) * 100).toFixed(2);
+    let op = "";
     if (data.at(-1) > data.at(-2)) {
         $(elem).addClass("received");
-        op = "+ ";
+        op = "+";
     } else {
         $(elem).addClass("sent");
-        op = "- ";
     }
-    $(elem).html(op + percentage + " %")
+    $(elem).html(op +percentage + " %")
 }
 
 function getRandomValue() {

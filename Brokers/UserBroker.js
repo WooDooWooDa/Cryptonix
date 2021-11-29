@@ -1,4 +1,3 @@
-const {response} = require("express");
 let mongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 
@@ -14,7 +13,7 @@ function connect() {
 }
 
 exports.findByEmail = function findUserByEmail(value) {
-    return connect().then(db => {
+    return connect.then(db => {
         db.collection('users').find({email: value}).toArray(function(err, result) {
             if (err) throw err;
             return result

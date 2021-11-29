@@ -6,7 +6,7 @@ mixin flash()
 
 mixin flash-message(data, type)
   if data.length > 0
-    .notification(class='is-' + type).muted
+    .notification(class='is-' + type)
       ul
         each message in data
           if message !== ""

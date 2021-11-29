@@ -1,7 +1,6 @@
 var express = require('express');
-const {Transaction} = require("../models/Transaction");
-const {Crypto} = require("../models/Cryptos");
 const {MongoClient: mongoClient} = require("mongodb");
+const { check,validationResult } = require('express-validator');
 var router = express.Router();
 
 /* GET home page. */
@@ -15,7 +14,6 @@ router.get('/', function(req, res, next) {
         db.collection('crypto').find().toArray(function (err, result) {
             if (err) throw err;
             client.close();
-            console.log(result);
             res.render('market', {
                 title: "Market",
                 account: req.session.account,
@@ -35,6 +33,22 @@ router.get('/:crypto', function (req, res) {
         account: req.session.account,
         crypto: currentCrypto
     });
+});
+
+router.get('/:crypto/value', function (req, res) {
+
+});
+
+router.post('/:crypto/buy',
+     (req, res) => {
+
+
+    res.redirect("/wallets/" + req.params.crypto)
+});
+
+router.post('/:crypto/sell', function (req, res) {
+    console.log("selll")
+    res.redirect("/wallets/" + req.params.crypto)
 });
 
 module.exports = router;

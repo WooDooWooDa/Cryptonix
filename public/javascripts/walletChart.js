@@ -1,13 +1,24 @@
 //import {drawChartNoAxisNoLegend, say} from "./chartHelper.js";
 var data = [86,783,221,106,450,600,133,221,800,850];
 
-let cryptoApiUrl = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
-
 $(document).ready(function() {
-    $("[data-chart]").each(function () {
-        let coin = this.dataset.chart;
-        let canvas = this;
-        console.log("hereee")
+    if (window.location.href.endsWith("wallets")) {
+        $("[data-chart]").each(function () {
+            let coin = this.dataset.chart;
+            let canvas = this;
+            $.ajax({
+                url: "http://10.10.4.37:3000/wallets/" + coin + "/history",
+                type: "GET",
+                data: {},
+                error: function () {
+                    console.log("Error loading wallet history chart");
+                }
+            }).done(function(data) {
+                drawChartNoAxisNoLegend(canvas, data);
+            });
+        });
+    } else {
+        let coin = $("[data-chart]")[0].dataset.chart;
         $.ajax({
             url: "http://10.10.4.37:3000/wallets/" + coin + "/history",
             type: "GET",
@@ -16,9 +27,9 @@ $(document).ready(function() {
                 console.log("Error loading wallet history chart");
             }
         }).done(function(data) {
-            drawChartNoAxisNoLegend(canvas, data);
+            drawChart($("[data-chart]")[0], data);
         });
-    });
+    }
 });
 
 function drawChartNoAxisNoLegend(canvas, data) {

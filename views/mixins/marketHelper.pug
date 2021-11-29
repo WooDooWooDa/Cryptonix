@@ -1,10 +1,10 @@
 mixin smallMarket(market)
-  a(href="/market/" + market).wallet.tile.is-parent.is-3.no-hover
+  a(href="/market/" + market.symbol).wallet.tile.is-parent.is-3.no-hover
     .tile.is-child.box.px-3.py-5
       .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
-        h1.secondary.is-bold=market
+        h3.secondary.is-bold=market.symbol
         .is-flex.is-flex-direction-row.has-text-white
-          h3.pr-2 120.34
+          h3.pr-2=market.value
           h3.is-family-monospace $CAD
       .value.sent.px-4.is-flex.is-justify-content-end
         h3 +0.44 %

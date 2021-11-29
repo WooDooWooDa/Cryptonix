@@ -59,7 +59,7 @@ block content
                 p.is-bold Calculator
             .wallets.tile.is-ancestor.is-flex.is-flex-wrap-wrap.pt-3
               include mixins/marketHelper
-              each market in ["BTC","ETH","ADA","SAFE", "SHIB", "BNB"]
+              each market in markets
                 +smallMarket(market)
               +followAnother(2)
       .column.is-4
@@ -68,7 +68,7 @@ block content
           include mixins/transactionsHelper
           each wallet in wallets
             if wallet.transactions.length > 0
-              +smallTransaction(wallet.transactions[0])
+              +smallTransaction(wallet.transactions[wallet.transactions.length - 1])
             else
-              h3.p-4.pale-grey No transactions in wallet for #{wallet.crypto.name}
+              h3.p-4.pale-grey No transactions in #{wallet.crypto.name} wallet
 

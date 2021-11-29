@@ -1,0 +1,60 @@
+mixin buyForm(wallet)
+  .pt-4
+    h1.title.pale-grey.muted Buy #{wallet.crypto.name}
+    form(method="POST" action='/market/' + wallet.crypto.symbol + '/buy').mx-6
+      .field
+        label.label.pale-grey.muted Buy with
+        .select.width-100
+          select(disabled).input.bg-secondary.no-border.pale-grey
+            option(selected) FIAT
+      .field
+        label.label.pale-grey.muted Amount
+          span.is-family-monospace  ($CAD)
+        input(name="amount" type="number" autocomplete="off").input.bg-secondary.no-border.pale-grey
+      .field
+        label.label.pale-grey.muted #{wallet.crypto.name} obtained
+        .input.bg-secondary.no-border.pale-grey
+          p#obtained 0
+      .is-flex.is-justify-content-end.mt-5
+        button.button.btn-accent Buy now
+
+
+mixin buyFiatForm(wallet)
+  .pt-4
+    h1.title.pale-grey Buy Fiat with a credit card
+    form(method="POST" action='/wallets/buyFiat').mx-6.buy-form
+      .field.mb-6
+        label.label Amount
+          span.is-family-monospace  ($cad)
+        input(name="amount" type="number").input.bg-secondary.no-border.pale-grey
+      .field
+        label.label Name on the card
+        input(name="name").input.bg-secondary.no-border.pale-grey
+      .field
+        label.label Credit card number
+        input#cardnumber(name="cardNumber" type="tel" placeholder="0000 0000 0000 0000").input.bg-secondary.no-border.pale-grey
+      .columns
+        .column
+          label.label Expiration
+          input(name="expiration" type="date").input.bg-secondary.no-border.pale-grey
+        .column
+          label.label CVV
+          input(name="cvv" type="number" placeholder="123").input.bg-secondary.no-border.pale-grey
+      .is-flex.is-justify-content-end
+        button.button.btn-accent Pay now
+
+mixin sellForm(wallet)
+  .pt-4
+    h1.title.pale-grey.muted Sell #{wallet.crypto.name}
+    form(method="POST" action='/market/' + wallet.crypto.symbol + '/sell').mx-6
+      .field
+        label.label.pale-grey.muted Amount
+          span.is-family-monospace  (#{wallet.crypto.symbol})
+        input(name="amount" type="number" autocomplete="off").input.bg-secondary.no-border.pale-grey
+      .field
+        label.is-family-monospace.label.pale-grey.muted $CAD
+          span  obtained
+        .input.bg-secondary.no-border.pale-grey
+          p#obtained 0
+      .is-flex.is-justify-content-end.mt-5
+        button.button.btn-accent Sell now

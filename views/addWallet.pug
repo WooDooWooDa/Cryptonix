@@ -15,6 +15,7 @@ block content
     .wallet.mx-5.py-5.is-flex.is-justify-content-center
       .column.box.is-flex.is-6.is-flex-direction-column
         h1.is-bold.p-3.has-text-centered Create a wallet
+        +flash()
         form(method="post" action="/wallets/add").m-4.is-flex.is-flex-direction-row.is-align-items-center
           label.has-text-white Available Cryptos
           .select.mx-5

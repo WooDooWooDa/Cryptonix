@@ -1,12 +1,24 @@
+const Action = {
+    SENT: "sent",
+    RECEIVED: "received",
+    BOUGHT: "bought",
+    SOLD: "sold",
+}
+
 class Transaction {
-    action = "sent";
-    date = "10:00, 23 Dec 2018";
-    status = true;
-    otherAddress = "0x234890745398450345873450456568";
-    constructor(crypto, amount) {
+    action;
+    date;
+    status;
+    otherAddress = "";
+    constructor(crypto, amount, action ,address) {
         this.crypto = crypto;
         this.amount = amount;
+        this.action = action;
+        let date = new Date();
+        this.date = date.toLocaleDateString() + " " +  date.toLocaleTimeString();
+        this.otherAddress = address;
     }
 }
 
 exports.Transaction = Transaction;
+exports.Action = Action;

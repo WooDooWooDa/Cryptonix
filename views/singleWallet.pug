@@ -1,4 +1,6 @@
 extends mixins/layout
+include mixins/transactionsHelper
+include mixins/buySellHelper
 
 block nav
   +sidenav()
@@ -29,20 +31,45 @@ block content
             p.pale-grey.is-bold.muted Your wallet address:
             button#toggleQRCode.button.btn-transparent
               h3.secondary QR-code
-          button.button.btn-full.column.accent-border.is-flex.is-align-items-center.my-3.width-100.p-5
-            h3.pale-grey.muted=wallet.address
+          button#addressBtn.button.btn-full.column.accent-border.is-flex.is-align-items-center.my-3.width-100.p-5.tooltip
+            span#addressToolTip.tool-tip-text.muted.p-2 Copy to clipboard
+            p#address.pale-grey.muted=wallet.address
         .history
           p.pale-grey.is-bold.muted Balance history:
           canvas(data-chart=wallet.crypto.symbol).m-3
       .column.bg-primary.ml-3.p-5.pb-6
-        p.pale-grey.is-bold.muted Past transactions:
-          include mixins/transactionsHelper
+        .tabs.is-medium
+          ul
+            li.is-active
+              a(href="#transactions").tabs-a
+                p.pale-grey Past transactions
+            li
+              a(href="#buy").tabs-a
+                p.pale-grey Buy
+            li
+              a(href="#sell").tabs-a
+                p.pale-grey Sell
+        #transactions.tab
           if wallet.transactions.length === 0
             h2.pt-4.pale-grey.muted.mx-3 No transaction to show
           else
             each transaction in wallet.transactions
               +smallTransaction(transaction)
-
+        #buy.is-hidden.tab.mx-4
+          +flash()
+          if wallet.crypto.symbol === "FIAT"
+            +buyFiatForm(wallet)
+          else
+            +buyForm(wallet)
+        #sell.is-hidden.tab.mx-4
+          if wallet.crypto.symbol === "FIAT"
+            .notification.is-danger.mx-4
+              p It is not possible to sell 'FIAT' at the moment, please come back later
+          else
+            +flash()
+            +sellForm(wallet)
 
 block script
+  script(src="/javascripts/tabs.js")
+  script(src="/javascripts/copyAddress.js")
   script(src="/javascripts/walletChart.js")

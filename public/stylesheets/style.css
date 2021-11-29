@@ -107,7 +107,7 @@ h3 {
 }
 
 h4 {
-  font-size: 8px;
+  font-size: 12px;
 }
 
 .is-bold {
@@ -366,11 +366,11 @@ button.crypto-logo {
 }
 
 .bought {
-  color: darkorange;
+  color: deepskyblue;
 }
 
 .sold {
-  color: deepskyblue;
+  color: darkorange;
 }
 
 /* wallets */
@@ -384,4 +384,58 @@ button.crypto-logo {
 
 .total {
   font-size: 70px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tool-tip-text {
+  display: none;
+  background-color: var(--secondary);
+  color: var(--white);
+  text-align: center;
+  border-radius: 3px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+/*little triangle*/
+.tooltip .tool-tip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--secondary) transparent transparent transparent;
+}
+
+.tabs ul {
+  border-bottom-color: transparent !important;
+}
+
+.tabs a {
+  border-bottom-color: transparent;
+}
+
+.tabs .is-active a {
+  border-bottom: solid 3px;
+  border-bottom-color: var(--secondary) !important;
+}
+
+.buy-form .label {
+  color: var(--pale-grey);
+  opacity: 0.5;
+}
+
+.buy-form .input::placeholder {
+  color: var(--white) !important;
+  opacity: 0.3;
 }
