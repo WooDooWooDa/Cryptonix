@@ -14,7 +14,7 @@ block content
       .dates.is-flex-direction-row.is-flex.is-align-items-center
         h3.px-3.is-bold FROM
         button.button.btn-full
-          h3 Dec 08, 2001
+          h3 ----
         h3.px-3.is-bold TO
         button.button.btn-full
           h3 Today
@@ -26,21 +26,20 @@ block content
         button.button.btn-full.ml-6
           h3.is-bold Export History
       .filter-by.is-align-items-center.is-flex
-        button.button.btn-transparent.selected
+        button.button.btn-transparent.selected(data-toggle-action="all")
           h3.is-bold ALL
-        button.button.btn-transparent
-          h3.is-bold SENT
-        button.button.btn-transparent
-          h3.is-bold RECEIVED
+        each action in actions
+          button.button.btn-transparent(data-toggle-action=action)
+            h3.is-bold.all-caps=action
 
     .transactions.mx-5.my-6
       include mixins/transactionsHelper
       each transaction in transactions
-        .box.bg-primary.p-5.is-justify-content-space-between.is-flex
+        .box.bg-primary.p-5.is-justify-content-space-between.is-flex(data-action=transaction.action)
           .left.is-flex-direction-row.is-flex.is-flex.is-align-items-center
-            a.icon.mx-5.secondary
+            a.icon.ml-3.secondary
               .fas.fa-ellipsis-v.is-size-5
-            .date-time.has-text-white.mx-5
+            .date-time.has-text-white.mr-5
               h3=transaction.date
             a(href="/market/" + transaction.crypto.sigle)
               button.button.btn-pale.crypto-logo.mx-5
@@ -49,11 +48,11 @@ block content
               .icon-text
                 .icon.pr-3
                   +transactionArrow(transaction.action)
-                h3.has-text-white=transaction.otherAddress
+                h4.has-text-white=transaction.otherAddress
           .right.is-flex-direction-row.is-flex.is-flex.is-align-items-center
             .amount.has-text-white.is-flex-direction-row.is-flex
               h1.mr-2=transaction.amount
-              h1.mr-6.is-bold=transaction.crypto.sigle
+              h1.mr-6.is-bold=transaction.crypto.symbol
             .status
               if transaction.status
                 button.button.accent.btn-accent
@@ -62,4 +61,7 @@ block content
                 button.button.accent.btn-border
                   h3.has-text-white Pending
 
-
+block script
+  script.
+    var actions = !{JSON.stringify(actions)}
+  script(src="/javascripts/transactionsFilter.js")

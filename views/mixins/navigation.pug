@@ -47,9 +47,13 @@ mixin topnav()
               .fas.fa-bars
         .profile-name.ml-4
           h3.is-bold #{account.firstname} #{account.lastname}
-        .profile-pic.mx-5
+        .profile-pic.ml-5
           button.button.btn
             .icon-text
               a(href="/profile").icon.is-size-4
                 i.fas.fa-user
+        button.button.btn-transparent.menu-bars.mx-3
+          .icon-text
+            a(href="/logout").icon.is-size-3.accent
+              i.fas.fa-sign-out-alt
 

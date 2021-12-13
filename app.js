@@ -13,6 +13,7 @@ let walletsRouter = require('./routes/wallets');
 let marketRouter = require('./routes/market');
 let transactionsRouter = require('./routes/transactions');
 let usersRouter = require('./routes/users');
+let apiRouter = require('./routes/api');
 
 let app = express();
 
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/wallets', walletsRouter);

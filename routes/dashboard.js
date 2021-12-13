@@ -5,10 +5,9 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if (!req.session.isLogged) {
-        res.redirect('/login');
+        return res.redirect('/login');
     }
     let account = req.session.account;
-    console.log(account.wallets[0].address);
     mongoClient.connect('mongodb://localhost:27017', function(err, client) {
         if (err) reject(err);
         let db = client.db('cryptonix');

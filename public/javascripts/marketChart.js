@@ -1,5 +1,10 @@
 
 $(document).ready(function() {
+    markets.forEach(market => {
+        console.log(market);
+        //$('[data-volume= ' + market.symbol + ']').html((market.volume).toPrecision(2));
+    })
+
     // $.ajax({
     //     url: "http://api.nomics.com/v1/currencies?key=42019047560755796b82a1e4b526309c1be84a5e&ids=BTC",
     //     type: "GET",

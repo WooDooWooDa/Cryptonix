@@ -31,6 +31,10 @@ body {
   background-color: #18191D !important;
 }
 
+.all-caps {
+  text-transform: uppercase;
+}
+
 .height-100 {
   min-height: 100%;
 }
@@ -438,4 +442,15 @@ button.crypto-logo {
 .buy-form .input::placeholder {
   color: var(--white) !important;
   opacity: 0.3;
+}
+
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date-time {
+  min-width: 15rem;
+  text-align: center;
 }

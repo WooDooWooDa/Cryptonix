@@ -7,7 +7,7 @@ mixin smallTransaction(transaction)
           +transactionArrow(transaction.action)
           p.amount.ml-2(class=transaction.action)=transaction.amount
           p.pl-2=transaction.crypto.symbol
-      .pale-grey.muted.pt-4
+      .pale-grey.muted.pt-4.overflow
         h4=transaction.otherAddress
 
 mixin transactionArrow(action)

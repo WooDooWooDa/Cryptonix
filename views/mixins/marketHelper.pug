@@ -4,10 +4,10 @@ mixin smallMarket(market)
       .is-flex.is-justify-content-space-between.is-flex-direction-row.is-align-items-center.px-4
         h3.secondary.is-bold=market.symbol
         .is-flex.is-flex-direction-row.has-text-white
-          h3.pr-2=market.value
+          h3(data-market=market.symbol).pr-2=market.value
           h3.is-family-monospace $CAD
-      .value.sent.px-4.is-flex.is-justify-content-end
-        h3 +0.44 %
+      .value.received.px-4.is-flex.is-justify-content-end
+        h3 +0 %
 
 mixin followAnother(size)
   a(href="/market/add").tile.is-parent.no-hover.is-3

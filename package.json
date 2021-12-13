@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "chart.js": "^3.6.0",
     "chartjs-node-canvas": "^4.1.4",
     "coininfo": "^5.1.0",
@@ -20,7 +21,10 @@
     "jquery": "^3.6.0",
     "mongodb": "^4.2.0",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.6.6",
     "password-hash": "^1.2.2",
-    "pug": "2.0.0-beta11"
+    "pug": "2.0.0-beta11",
+    "qrcode": "^1.5.0",
+    "request": "^2.88.2"
   }
 }

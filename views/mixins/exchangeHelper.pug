@@ -1,3 +1,23 @@
+mixin sendForm(wallet, banks)
+  form(method="post" action="/wallets/send").m-4
+    input(name="from" value=wallet.address).is-hidden
+    input(name="crypto" value=wallet.crypto.symbol).is-hidden
+    .is-flex.is-align-items-center.mb-5
+      label.is-bold.has-text-white Bank to send to :
+      .select.mx-5
+        select(name="bank").bg-secondary.no-border.has-text-white
+            each bank in banks
+              option(value=bank.endRoute).has-text-white=bank.name
+    .field.mb-4
+      label.label.has-text-white Amount
+      input(name="amount" type="number" placeholder=wallet.crypto.symbol).input.bg-primary.no-border.pale-grey
+    .field.mb-6
+      label.label.has-text-white Address
+      input(name="addressTo" type="text" maxlength="64").input.bg-primary.no-border.pale-grey
+    .is-flex.is-justify-content-end
+      button.button.btn-accent
+        h3 Send
+
 mixin buyForm(wallet)
   .pt-4
     h1.title.pale-grey.muted Buy #{wallet.crypto.name}
@@ -10,11 +30,11 @@ mixin buyForm(wallet)
       .field
         label.label.pale-grey.muted Amount
           span.is-family-monospace  ($CAD)
-        input(name="amount" type="number" autocomplete="off").input.bg-secondary.no-border.pale-grey
+        input#amountBuy(data-coin=wallet.crypto.symbol name="amount" type="text" autocomplete="off").input.bg-secondary.no-border.pale-grey
       .field
         label.label.pale-grey.muted #{wallet.crypto.name} obtained
         .input.bg-secondary.no-border.pale-grey
-          p#obtained 0
+          p#obtainedBuy 0
       .is-flex.is-justify-content-end.mt-5
         button.button.btn-accent Buy now
 
@@ -50,11 +70,11 @@ mixin sellForm(wallet)
       .field
         label.label.pale-grey.muted Amount
           span.is-family-monospace  (#{wallet.crypto.symbol})
-        input(name="amount" type="number" autocomplete="off").input.bg-secondary.no-border.pale-grey
+        input#amountSell(data-coin=wallet.crypto.symbol name="amount" type="text" autocomplete="off").input.bg-secondary.no-border.pale-grey
       .field
         label.is-family-monospace.label.pale-grey.muted $CAD
           span  obtained
         .input.bg-secondary.no-border.pale-grey
-          p#obtained 0
+          p#obtainedSell 0
       .is-flex.is-justify-content-end.mt-5
         button.button.btn-accent Sell now

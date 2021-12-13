@@ -16,10 +16,15 @@ const Crypto = {
         name: "Ethereum",
         img_url: img_base_url + "eth.png"
     },
-    ADA: {
-        symbol: "ADA",
-        name: "Cardano",
-        img_url: img_base_url + "ada.png"
+    SAFE: {
+        symbol: "SAFE",
+        name: "Safemoon",
+        img_url: img_base_url + "safe.png"
+    },
+    SHIB: {
+        symbol: "SHIB",
+        name: "Shiba Inu",
+        img_url: img_base_url + "shib.png"
     }
 }
 

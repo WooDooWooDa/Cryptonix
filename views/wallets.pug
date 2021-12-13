@@ -3,6 +3,24 @@ extends mixins/layout
 block nav
   +sidenav()
 
+block modal
+  .modal#modal-add-wallet
+    .modal-background(data-toggle="modal-add-wallet")
+    .modal-content
+      .box.bg-secondary
+        h1.is-bold.p-3.has-text-centered Add a crypto wallet
+        form(method="post" action="/wallets/add").m-4.is-flex.is-flex-direction-row.is-align-items-center
+          label.has-text-white Available Cryptos
+          .select.mx-5
+            select(name="symbol").bg-secondary.no-border.has-text-white
+              each market in markets
+                if market.symbol !== "FIAT"
+                  option(value=market.symbol).has-text-white=market.name
+          button.button.btn-accent
+            h3 Add this wallet
+    button(data-toggle="modal-add-wallet").modal-close.is-large
+  script(src="/javascripts/modal.js")
+
 block content
   #main
     +topnav()
@@ -11,8 +29,9 @@ block content
         h3.is-bold Overview
         .icon
           .fas.fa-ellipsis-v
-      a(href="/wallets/add").accent
+      a(data-toggle="modal-add-wallet").accent
         p.is-bold Add Wallet
+    +flash()
     .wallets.tile.is-ancestor.px-5.my-5.is-flex.is-flex-wrap-wrap
       include mixins/transactionsHelper
       each wallet in wallets
@@ -33,7 +52,7 @@ block content
               else
                 h3.pt-4.pale-grey.muted.mx-3 No transaction to show
 
-      a(href="/wallets/add").tile.is-parent.is-4.no-hover
+      a(data-toggle="modal-add-wallet").tile.is-parent.is-4.no-hover
         .tile.is-child.box.px-3.py-5.wallet-add
           .is-flex.is-align-items-center.is-justify-content-center.height-100
             h1.is-bold.primary Add Wallet

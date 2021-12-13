@@ -33,4 +33,6 @@ block content
       +followAnother(1)
 
 block script
+  script.
+    var markets = !{JSON.stringify(markets)}
   script(src="/javascripts/marketChart.js" type="module")

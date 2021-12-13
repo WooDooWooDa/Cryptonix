@@ -8,7 +8,7 @@ const Action = {
 class Transaction {
     action;
     date;
-    status;
+    status = true;
     otherAddress = "";
     constructor(crypto, amount, action ,address) {
         this.crypto = crypto;

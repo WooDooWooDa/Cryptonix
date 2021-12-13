@@ -1,9 +1,19 @@
 extends mixins/layout
 include mixins/transactionsHelper
-include mixins/buySellHelper
+include mixins/exchangeHelper
 
 block nav
   +sidenav()
+
+block modal
+  .modal#modal-send
+    .modal-background(data-toggle="modal-send")
+    .modal-content
+      .box.bg-secondary
+        h1.is-bold.p-3.has-text-centered Send #{wallet.crypto.name}
+        +sendForm(wallet, banks)
+    button(data-toggle="modal-send").modal-close.is-large
+  script(src="/javascripts/modal.js")
 
 block content
   #main
@@ -14,6 +24,7 @@ block content
           .icon
             .fas.fa-chevron-left
           h3.is-bold Back
+    +flash()
     .wallet.columns.mx-5.py-5
       .column.bg-primary.mr-3.p-5.is-5
         p.pale-grey.is-bold.muted Current balance:
@@ -22,7 +33,7 @@ block content
           h2.secondary.is-bold.mx-4.mt-4=wallet.crypto.symbol
         p.secondary.is-bold.mb-4 $CAD Value : #{wallet.value}
         .actions.is-flex.is-flex-direction-row.is-align-items-center
-          button.button.bg-accent.btn.column.mx-4.is-flex.is-align-items-center
+          button.button.bg-accent.btn.column.mx-4.is-flex.is-align-items-center(data-toggle="modal-send")
             h3 Send
           button.button.btn-border.column.mx-4.accent-border.is-flex.is-align-items-center
             h3.has-text-white Receive
@@ -31,9 +42,9 @@ block content
             p.pale-grey.is-bold.muted Your wallet address:
             button#toggleQRCode.button.btn-transparent
               h3.secondary QR-code
-          button#addressBtn.button.btn-full.column.accent-border.is-flex.is-align-items-center.my-3.width-100.p-5.tooltip
+          button#addressBtn.button.btn-full.is-flex.is-align-items-center.my-3.width-100.p-5.tooltip
             span#addressToolTip.tool-tip-text.muted.p-2 Copy to clipboard
-            p#address.pale-grey.muted=wallet.address
+            p#address.pale-grey.overflow.muted=wallet.address
         .history
           p.pale-grey.is-bold.muted Balance history:
           canvas(data-chart=wallet.crypto.symbol).m-3
@@ -53,10 +64,9 @@ block content
           if wallet.transactions.length === 0
             h2.pt-4.pale-grey.muted.mx-3 No transaction to show
           else
-            each transaction in wallet.transactions
+            each transaction in transactions
               +smallTransaction(transaction)
         #buy.is-hidden.tab.mx-4
-          +flash()
           if wallet.crypto.symbol === "FIAT"
             +buyFiatForm(wallet)
           else
@@ -66,10 +76,10 @@ block content
             .notification.is-danger.mx-4
               p It is not possible to sell 'FIAT' at the moment, please come back later
           else
-            +flash()
             +sellForm(wallet)
 
 block script
+  script(src="/javascripts/getValueBuySell.js")
   script(src="/javascripts/tabs.js")
   script(src="/javascripts/copyAddress.js")
   script(src="/javascripts/walletChart.js")
