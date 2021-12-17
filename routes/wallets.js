@@ -48,17 +48,11 @@ router.post('/send',
         return res.redirect('/wallets/' + req.body.crypto);
     }
 
-    url = "http://206.167.241." + req.body.bank;
-    if (req.body.bank === "10.10.4.37") {
-        url = "http://10.10.4.37:3000";
-    }
-    axios.post(url + "/api/send", {
+    axios.post("http://206.167.241." + req.body.bank + "/api/send/" + req.body.crypto, {
         amount: req.body.amount,
         address: req.body.addressTo,
-        crypto: req.body.crypto,
-        from: req.body.from
+        fromAddress: req.body.from
     }).then(response => {
-        console.log(response);
         mongoClient.connect('mongodb://localhost:27017', function(err, client) {
             if (err) reject(err);
             let db = client.db('cryptonix');
@@ -67,13 +61,12 @@ router.post('/send',
             db.collection('users').updateOne({email: req.session.account.email}, {$set: {wallets: wallets}}).then(r => {
                 client.close();
             });
+            return res.redirect('/wallets');
         });
-        return res.redirect('/wallets');
     }).catch(error => {
-        console.log(error);
         req.flash('errors', [{msg: sendError(error.response.status)}]);
         return res.redirect('/wallets');
-    })
+    });
 });
 
 router.post('/add', function (req, res) {
@@ -257,6 +250,8 @@ function sendError(code) {
         case 401: return "Invalid crypto option..."
         case 400: return "Invalid amount..."
         case 402: return "Invalid crypto for address..."
+        case 500: return "Bank Api internal error, try later..."
+        default: return "An error as occurred, try later..."
     }
 }
 

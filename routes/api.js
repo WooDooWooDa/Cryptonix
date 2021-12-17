@@ -4,12 +4,12 @@ const {Crypto} = require("../models/Cryptos");
 const {Action, Transaction} = require("../models/Transaction");
 var router = express.Router();
 
-router.post('/send',function (req, res) {
+router.post('/send/:crypto',function (req, res) {
     if (req.body.amount <= 0 || req.body.amount == null) {
         res.statusCode = 400;
         return res.json();
     }
-    if (getCrypto(req.body.crypto) == null) {
+    if (getCrypto(req.params.crypto) == null) {
         res.statusCode = 401;
         return res.json();
     }
@@ -20,13 +20,13 @@ router.post('/send',function (req, res) {
             if (result == null) {
                 res.statusCode = 404;
             } else {
-                let wallet = getWallet(result.wallets, req.body.crypto);
+                let wallet = getWallet(result.wallets, req.params.crypto);
                 if (wallet == null || wallet.address !== req.body.address) {
                     res.statusCode = 404;
-                } else if (wallet.crypto.symbol !== req.body.crypto) {
+                } else if (wallet.crypto.symbol !== req.params.crypto) {
                     res.statusCode = 402;
                 } else {
-                    let wallets = receive(result.wallets, req.body.amount, req.body.crypto, req.body.from);
+                    let wallets = receive(result.wallets, req.body.amount, req.params.crypto, req.body.fromAddress);
                     db.collection('users').updateOne({wallets: {$elemMatch: {address: req.body.address}}}, {$set: {wallets: wallets}}).then(function (result) {
                         if (err) throw err;
                         client.close();
